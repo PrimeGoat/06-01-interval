@@ -33,8 +33,8 @@ class Clock extends events {
         this.count = 0;
         this.span = span;
 
-        console.log(this.emit);
-        this.intervalID = setInterval(this.tick, 1000);
+        //this.emitter = this.emit.bind(this);
+        this.intervalID = setInterval(tick, 1000);
     }
 
     tick() {
@@ -50,6 +50,11 @@ class Clock extends events {
 
 const myTimer = new Clock(10);
 
+function tick() {
+    myTimer.tick();
+}
+
+
 myTimer.on('countSeconds', (count) => {
     let now = new Date();
     console.log(`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} ${count} ${pluralize(count, "second", "seconds")}`);
@@ -62,6 +67,3 @@ myTimer.on('done', () => {
 const pluralize = function(value, singular, plural) {
     return (value == 1) ? singular : plural;
 }
-
-myTimer.tick();
-console.log("WTF");
